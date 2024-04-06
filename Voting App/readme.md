@@ -22,7 +22,7 @@ This is a backend application for a voting system where users can vote for candi
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/itshirdeshk/Backend-Projects/tree/main/Voting%20App
+   git clone https://github.com/itshirdeshk/Backend-Projects
 
 
 # API Endpoints
