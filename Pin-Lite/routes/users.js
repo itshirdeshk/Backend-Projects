@@ -1,7 +1,18 @@
 const mongoose = require("mongoose");
 const plm = require("passport-local-mongoose");
+const dotenv = require("dotenv");
 
-mongoose.connect("mongodb://localhost:27017/pin-lite");
+dotenv.config({
+  path: "./.env",
+});
+
+const db = mongoose.createConnection(
+  `${process.env.MONGODB_URI}/pin-lite`
+);
+
+db.on('open', function() {
+  console.log("Connected!");
+});
 
 const userSchema = new mongoose.Schema({
     username: String,
@@ -15,11 +26,11 @@ const userSchema = new mongoose.Schema({
         default: [],
     },
     posts: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Post"
-      }
-    ]
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post",
+        },
+    ],
 });
 userSchema.plugin(plm);
 
