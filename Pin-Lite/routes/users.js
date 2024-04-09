@@ -3,16 +3,13 @@ const plm = require("passport-local-mongoose");
 const dotenv = require("dotenv");
 
 dotenv.config({
-  path: "./.env",
+    path: "./.env",
 });
 
-const db = mongoose.createConnection(
-  `${process.env.MONGODB_URI}/pin-lite`
-);
-
-db.on('open', function() {
-  console.log("Connected!");
-});
+mongoose
+    .connect(`${process.env.MONGODB_URI}/pin-lite`)
+    .then(() => console.log("Connected!"))
+    .catch((err) => console.log(err));
 
 const userSchema = new mongoose.Schema({
     username: String,
