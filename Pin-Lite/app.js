@@ -10,6 +10,7 @@ var usersRouter = require("./routes/users");
 var app = express();
 
 const expressSession = require("express-session");
+const MemoryStore = require("memorystore")(expressSession);
 const passport = require("passport");
 
 // view engine setup
@@ -23,11 +24,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
-  expressSession({
-    resave: false,
-    saveUninitialized: false,
-    secret: "pin-lite",
-  })
+    expressSession({
+        cookie: { maxAge: 86400000 },
+        store: new MemoryStore({
+            checkPeriod: 86400000, // prune expired entries every 24h
+        }),
+        resave: false,
+        saveUninitialized: false,
+        secret: "pin-lite",
+    })
 );
 
 app.use(passport.initialize());
@@ -40,18 +45,18 @@ app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+    // render the error page
+    res.status(err.status || 500);
+    res.render("error");
 });
 
 module.exports = app;
