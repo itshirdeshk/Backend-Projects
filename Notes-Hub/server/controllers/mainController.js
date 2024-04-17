@@ -5,7 +5,7 @@
 
 exports.homepage = function homepage(req, res) {
     const locals = {
-        title: "NodeJs Notes",
+        title: "Notes Hub",
         description: "Free NodeJs Notes App",
     };
     res.render("index", { locals, layout: "../views/layouts/front-page" });
@@ -18,7 +18,7 @@ exports.homepage = function homepage(req, res) {
 
 exports.about = function homepage(req, res) {
     const locals = {
-        title: "About - NodeJs Notes",
+        title: "About - Notes Hub",
         description: "Free NodeJs Notes App",
     };
     res.render("about", { locals });
