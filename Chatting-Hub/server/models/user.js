@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
-        name: {
+        bio: {
             type: String,
             required: true,
         },
